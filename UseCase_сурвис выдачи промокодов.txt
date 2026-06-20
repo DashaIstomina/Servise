@@ -1,0 +1,31 @@
+@startuml
+left to right direction
+actor "Маркетолог" as Marketolog
+actor "Клиент" as Client
+actor "CRM" as System
+rectangle Сервис_выдачи_промокодов {
+usecase "Создать акцию" as Create
+usecase "Запустить акцию" as Publish
+usecase "Остановить акцию" as Stop
+usecase "Запросить промокод" as Request
+usecase "Проверить право получения" as Check
+usecase "Проверить срок действия акции" as Term
+usecase "Выдать промокод" as Issue
+usecase "Отклонить выдачу промокода" as Reject
+usecase "Отправить отчет о выданных промокодах" as Send
+}
+Marketolog --> Create
+Marketolog --> Publish
+Marketolog --> Stop
+
+Client --> Request
+
+System --> Send
+
+Request ..> Check : <<include>>
+Request ..> Term : <<include>>
+Request ..> Issue : <<include>>
+
+Request ..> Reject: <<extend>>
+
+@enduml
