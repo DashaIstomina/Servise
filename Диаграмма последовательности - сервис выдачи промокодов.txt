@@ -1,0 +1,49 @@
+title Сервис выдачи промокодов
+
+actor Client
+participant "Сервис промокодов" as Service
+database "База данных" as DB
+
+== Step 1: Запрос промокода ==
+Client -> Service: Запросить промокод
+activate Service
+Service -> DB: Сохранить запрос
+activate DB
+DB --> Service: Запрос сохранен
+deactivate DB
+
+== Step 2: Проверить актуальность акции == 
+Service -> DB: Select status, end_date from action Where status = ?
+activate DB
+DB --> Service: Данные получены 
+deactivate DB
+
+alt Акция активна 
+
+  == Step 3: Проверить право выдачи промокода == 
+  Service -> DB: Select user_id, is_issued from users where is_issued = ?
+  activate DB
+  DB --> Service: Результат
+  
+  alt Промокод не выдавался
+  Service --> Client: выдать промокод
+
+    == Step 4: Выдать промокод == 
+    Service -> DB: Select id_promocode, promocode from action where       status_promocode = "не выдан"
+    activate DB
+    DB --> Service: промокод получен
+    deactivate DB
+
+    Service --> Client: Промокод SCMS63
+
+  else Промокод выдавался
+    Service --> Client: Ошибка, промокод выдан ранее
+  end
+
+else Акция не активна
+    Service --> Client : Срок акции истек, промокод не выдан
+end
+
+deactivate Service
+
+@enduml
