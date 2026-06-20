@@ -1,0 +1,83 @@
+openapi: 3.0.3
+info:
+  title: Сервис выдачи промокода
+  version: 1.0.0
+  description: OpenAPI для сервиса выдачи промокодов
+paths:
+  /promocode/issuances:
+    post:
+      summary: Получить промокод
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: 1
+                action_id:
+                  type: integer 
+                  example: 80
+      responses:
+        '200': 
+          description: Промокод выдан
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  promocode:
+                    type: string
+                    example: "KSJENVC6923"
+        '409':
+          description: Промокод выдавался ранее
+  /marketolog/action:
+    post:
+      summary: Маркетолог создает акцию
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Скидка на онлайн кинотеатр"
+                date_start:
+                  type: string 
+                  format: date
+                  example: "2026-06-18"
+                date_end:
+                  type: string
+                  format: date
+                  example: "2026-06-25"
+      responses:
+        '200':
+          description: ОК. Акция успешно создана
+  /marketolog/action/{id}/status:
+    put:
+      summary: Опубликовать акцию
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 18
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: "active"
+      responses:
+        '200':
+          description: ОК. Акция опубликована
+        
