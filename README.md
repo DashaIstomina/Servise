@@ -43,6 +43,4 @@
 Приложение 2 — UML Sequence Diagram  
 Приложение 3 — REST API (OpenAPI)  
 Приложение 4 — ERD (модель базы данных)  
-Приложение 5 — REST API (OpenAPI)  
-
 Приложение 5 — ERD (модель базы данных)
