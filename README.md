@@ -40,10 +40,9 @@
 
 6. Приложения  
 Приложение 1 — Use Case  
-Приложение 2 — BPMN  
-Приложение 3 — UML Sequence Diagram  
-Приложение 4 — REST API (OpenAPI)  
-Приложение 5 — ERD (модель базы данных)  
-Приложение 4 — REST API (OpenAPI)  
+Приложение 2 — UML Sequence Diagram  
+Приложение 3 — REST API (OpenAPI)  
+Приложение 4 — ERD (модель базы данных)  
+Приложение 5 — REST API (OpenAPI)  
 
 Приложение 5 — ERD (модель базы данных)
