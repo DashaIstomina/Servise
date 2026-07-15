@@ -1,0 +1,100 @@
+openapi: 3.0.3
+
+info:
+  title: Сервис выдачи промокодов
+  version: 1.0.0
+  description: API для выдачи промокодов пользователям
+
+paths:
+
+  /promocode/issuances:
+    post:
+      summary: Выдать промокод пользователю
+      description: Создает запись о выдаче промокода пользователю в рамках акции
+      operationId: createPromocodeIssuance
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromocodeIssuanceRequest'
+
+            example:
+              userId: 1
+              actionId: 10
+
+      responses:
+
+        '201':
+          description: Промокод успешно выдан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromocodeIssuanceResponse'
+              example:
+                issuanceId: 100
+                userId: 1
+                actionId: 10
+                promocodeId: 25
+                promocode: "SALE2026"
+                dateIssuances: "2026-07-15T12:00:00"
+
+        '400':
+          description: Некорректные данные запроса
+
+        '404':
+          description: Пользователь или акция не найдены
+
+        '409':
+          description: Пользователь уже получил промокод
+
+
+components:
+
+  schemas:
+    PromocodeIssuanceRequest:
+      type: object
+      required:
+        - userId
+        - actionId
+      properties:
+        userId:
+          type: integer
+          description: Идентификатор пользователя
+          example: 1
+        actionId:
+          type: integer
+          description: Идентификатор акции
+          example: 10
+
+    PromocodeIssuanceResponse:
+
+      type: object
+      properties:
+
+        issuanceId:
+          type: integer
+          description: Идентификатор выдачи
+          example: 100
+
+        userId:
+          type: integer
+          example: 1
+
+        actionId:
+          type: integer
+          example: 10
+
+        promocodeId:
+          type: integer
+          example: 25
+
+        promocode:
+          type: string
+          example: "SALE2026"
+
+        dateIssuances:
+          type: string
+          format: date-time
+          example: "2026-07-15T12:00:00"
